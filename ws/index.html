@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" type="text/css" href="http://localhost/app.css">
+</head>
+<body>
+<div id="page1">
+	<div class="c">
+    	<div class="pcode"><img src="http://192.168.2.101/s.png"></div>
+    	<ul id="chat"></ul>
+	</div>
+    <div class="send" style="display:none;"><input type="text" id="send" ><button id="send_button">发送</button></div>
+    <div class="send" style="-webkit-box-pack:center" >正在登陆中...</div>
+    <div id="count"></div>
+</div>
+
+    <script src="http://192.168.2.101/jquery-2.0.3.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://192.168.2.101/app.js"></script>
+</body>
+</html>
