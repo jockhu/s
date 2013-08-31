@@ -38,52 +38,70 @@ var ua={};
         }
     }
 //socket
+var gass = [{
+    img:'http://localhost/img/yilishabai.jpg',
+    key:'伊丽莎白',
+    string:'坂本辰马志村新八高杉晋助土方十四伊丽莎白',
+    size:4
+},{
+    img:'http://localhost/img/dingchun.jpg',
+    key:'定春',
+    string:'定春空知英秋吉田松阳服部全蔵神乐坂田银时',
+    size:2
+},{
+    img:'http://localhost/img/hata.jpg',
+    key:'HATA王子',
+    string:'HATA王子桂小太郎山崎退志村妙冲田总悟',
+    size:6
+}]
+var page = 1,k;
 var chat = socketio.listen(server).on('connection', function (socket) {
-    socket.on('message', function (msg) {
-        socket.emit('message', msg);
-        socket.broadcast.emit('message', msg);
-    });
+
+    socket.emit('topage',page);
     socket.on('chat',function(msg){
         socket.emit('chat',msg);
         socket.broadcast.emit('chat',msg);
     });
+    socket.on('topage',function(msg){
+        console.log(msg);
+        if(msg.pw!="m123456") return;
+        page = msg.i;
+        socket.emit('topage',msg.i);
+        socket.broadcast.emit('topage',msg.i);
+    })
     socket.on('count', function(msg){
+        i++; 
+        socket.emit('count', i);
+        socket.broadcast.emit('count', i);
+
+    });
+    socket.on('add',function(msg){
         var key = getUaKey(msg);
         if(ua[key]){
             ua[key] = ua[key]+1;
         }else{
             ua[key] = 1;
         }
-        i++;
         console.log(ua);
-     socket.emit('count', i);
-     socket.broadcast.emit('count', i);
     });
+    socket.on('gass',function(msg){
+        if(msg.pw!="m123456") return;
+        k++;
+        if(!gass[k]) k=0;
+        console.log(k);
+        var s = {
+            img : gass[k].img,
+            size : gass[k].size,
+            string : gass[k].string
+        }
+        socket.emit('gass',s);
+        socket.broadcast.emit('gass',s);
+    })
     socket.on('disconnect', function() {
         i--;
-     socket.emit('count', i);
-     socket.broadcast.emit('count', i);
+        socket.emit('count', i);
+        socket.broadcast.emit('count', i);
     });
 });
 
 
-// var chat = socketio.listen(server).on('connection', function (socket) {
-//     socket.on('message', function (msg) {
-//         chat.emit('message', msg);
-//         console.log(msg);
-//     });
-//     socket.on('count', function(msg){
-//         var key = getUaKey(msg);
-//         if(ua[key]){
-//             ua[key] = ua[key]+1;
-//         }else{
-//             ua[key] = 1;
-//         }
-//         i++;
-//         console.log(ua);
-//      chat.emit('count', i);    });
-//     socket.on('disconnect', function() {
-//         i--;
-//      chat.emit('count', i);
-//     });
-// });

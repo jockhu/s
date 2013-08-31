@@ -5,16 +5,22 @@
 <link rel="stylesheet" type="text/css" href="http://localhost/app.css">
 </head>
 <body>
-<div id="page1">
-	<div class="c">
-    	<div class="pcode"><img src="http://192.168.2.101/s.png"></div>
-    	<ul id="chat"></ul>
-	</div>
+<div id="page1" class="page" index="1">
+    <div class="pcode"><img src="http://192.168.2.101/s.png"></div>
+    <div id="count" class="count"><span></span>邀请你旁边的小伙伴一起加入吧！当前<strong></strong>人...</div>
+</div>
+<div class="page" id="page2">
+<ul id="chat">
+<div>说点什么吧，小伙伴...</div>
+</ul>
+</div>
+<div class="page" id="page3">page3</div>
+<div class="page" id="page4">page34</div>
+<div class="page" id="page5">page35</div>
+<div class="page" id="page6">page36</div>
+<div class="page" id="page7">page37</div>
     <div class="send" style="display:none;"><input type="text" id="send" ><button id="send_button">发送</button></div>
     <div class="send" style="-webkit-box-pack:center" >正在登陆中...</div>
-    <div id="count"></div>
-</div>
-
     <script src="http://192.168.2.101/jquery-2.0.3.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://192.168.2.101/app.js"></script>
