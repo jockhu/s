@@ -3,12 +3,11 @@ var fs = require('fs'), http = require('http'), socketio = require('socket.io');
 var i = 0,j=0;
 
 var server = http.createServer(function(req, res) {
- console.log(req.headers)
     res.end(fs.readFileSync(__dirname + '/index.html'));
 }).listen(8180, function() {
 });
 
-
+var host="http://192.168.2.101";
 
 
 var ua={};
@@ -39,22 +38,22 @@ var ua={};
     }
 //socket
 var gass = [{
-    img:'http://localhost/img/yilishabai.jpg',
+    img:host+'/img/yilishabai.jpg',
     key:'伊丽莎白',
     string:'坂本辰马志村新八高杉晋助土方十四伊丽莎白',
     size:4
 },{
-    img:'http://localhost/img/dingchun.jpg',
+    img:host+'/img/dingchun.jpg',
     key:'定春',
     string:'定春空知英秋吉田松阳服部全蔵神乐坂田银时',
     size:2
 },{
-    img:'http://localhost/img/hata.jpg',
+    img:host+'/img/hata.jpg',
     key:'HATA王子',
     string:'HATA王子桂小太郎山崎退志村妙冲田总悟',
     size:6
 }]
-var page = 1,k;
+var page = 1,k,gassTime;
 var chat = socketio.listen(server).on('connection', function (socket) {
 
     socket.emit('topage',page);
@@ -63,7 +62,6 @@ var chat = socketio.listen(server).on('connection', function (socket) {
         socket.broadcast.emit('chat',msg);
     });
     socket.on('topage',function(msg){
-        console.log(msg);
         if(msg.pw!="m123456") return;
         page = msg.i;
         socket.emit('topage',msg.i);
@@ -76,26 +74,47 @@ var chat = socketio.listen(server).on('connection', function (socket) {
 
     });
     socket.on('add',function(msg){
+        if(!msg) return;
         var key = getUaKey(msg);
         if(ua[key]){
             ua[key] = ua[key]+1;
         }else{
             ua[key] = 1;
         }
-        console.log(ua);
     });
     socket.on('gass',function(msg){
         if(msg.pw!="m123456") return;
         k++;
         if(!gass[k]) k=0;
-        console.log(k);
         var s = {
             img : gass[k].img,
             size : gass[k].size,
             string : gass[k].string
         }
+        gassTime = (+new Date());
         socket.emit('gass',s);
         socket.broadcast.emit('gass',s);
+    });
+    socket.on('check',function(msg){
+        if(msg.str==gass[k].key){
+            socket.emit('check',{status:true});
+
+            var p = {
+                name : msg.name,
+                time : (+new Date())-gassTime
+            }
+            socket.emit('prize',p);
+            socket.broadcast.emit('prize',p);
+
+        }else{
+            socket.emit('check',{status:false});
+        }
+    });
+    socket.on('graph',function(msg){
+        if(msg.pw!="m123456") return;
+        var g = ua;
+        socket.emit('graph',g);
+        socket.broadcast.emit('graph',g);
     })
     socket.on('disconnect', function() {
         i--;
