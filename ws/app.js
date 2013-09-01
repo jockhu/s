@@ -1,120 +1,122 @@
-var fs = require('fs'), http = require('http'), socketio = require('socket.io');
+var fs = require('fs'),
+    http = require('http'),
+    socketio = require('socket.io');
 
-var i = 0,j=0;
+var i = 0,
+    j = 0;
 
 var server = http.createServer(function(req, res) {
     res.end(fs.readFileSync(__dirname + '/index.html'));
-}).listen(8180, function() {
-});
+}).listen(8180, function() {});
 
-var host="http://192.168.2.101";
+var host = "http://192.168.2.101";
 
 
-var ua={};
-    function getUaKey(ua){
-        if(ua.match(/UCBrowser/i)){ //is UC
-            return ua.match(/(?:Android)|(?:iPhone)/)+'UC'+ ua.match(/UCBrowser\/(\d)/)[1];
-        }
-        else if(ua.match(/MQQBrowser/i)){ //is qq
-            return ua.match(/(?:Android)|(?:iPhone)/)+'QQ'+ ua.match(/MQQBrowser\/(\d)/)[1];
-        }else if(ua.match(/CriOS/i)){
-            return 'chrome';
-        }
-        else if(ua.match(/Mozilla\/\d\.\d\s*\((?:iPhone)|(?:iPod).*Mac\s*OS.*\)\s*AppleWebKit\/\d*.*Version\/\d.*Mobile\/\w*\s*Safari\/\d*\.\d*\.*\d*$/i)){//is iphone safari
-            return 'Mobile_Safari';
-        }
-        else if(ua.match(/MI.*\/.*AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i)||ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*.*XiaoMi\/miuiBrowser/i)){ //is Mi self
-            return 'XIAOMI';
-        }
-        else if(ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i)){ //is other android self
-            return 'Android_Others'
-        }
-        else if(ua.match(/Mozilla\/.*\(compatible\;Android\;.*\)/)){ //is special UC
-            return 'AndroidUC9';
-        }
-        else{
-            return "unknow";//test
-        }
+var ua = {};
+
+function getUaKey(ua) {
+    if (ua.match(/UCBrowser/i)) { //is UC
+        return ua.match(/(?:Android)|(?:iPhone)/) + 'UC' + ua.match(/UCBrowser\/(\d)/)[1];
+    } else if (ua.match(/MQQBrowser/i)) { //is qq
+        return ua.match(/(?:Android)|(?:iPhone)/) + 'QQ' + ua.match(/MQQBrowser\/(\d)/)[1];
+    } else if (ua.match(/CriOS/i)) {
+        return 'chrome';
+    } else if (ua.match(/Mozilla\/\d\.\d\s*\((?:iPhone)|(?:iPod).*Mac\s*OS.*\)\s*AppleWebKit\/\d*.*Version\/\d.*Mobile\/\w*\s*Safari\/\d*\.\d*\.*\d*$/i)) { //is iphone safari
+        return 'Safari';
+    } else if (ua.match(/MI.*\/.*AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i) || ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*.*XiaoMi\/miuiBrowser/i)) { //is Mi self
+        return 'XIAOMI';
+    } else if (ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i)) { //is other android self
+        return 'Android'
+    } else if (ua.match(/Mozilla\/.*\(compatible\;Android\;.*\)/)) { //is special UC
+        return 'AndroidUC9';
+    } else {
+        return "unknow"; //test
     }
+}
 //socket
 var gass = [{
-    img:host+'/img/yilishabai.jpg',
-    key:'伊丽莎白',
-    string:'坂本辰马志村新八高杉晋助土方十四伊丽莎白',
-    size:4
-},{
-    img:host+'/img/dingchun.jpg',
-    key:'定春',
-    string:'定春空知英秋吉田松阳服部全蔵神乐坂田银时',
-    size:2
-},{
-    img:host+'/img/hata.jpg',
-    key:'HATA王子',
-    string:'HATA王子桂小太郎山崎退志村妙冲田总悟',
-    size:6
+    img: host + '/img/yilishabai.jpg',
+    key: '伊丽莎白',
+    string: '坂本辰马志村新八高杉晋助土方十四伊丽莎白',
+    size: 4
+}, {
+    img: host + '/img/dingchun.jpg',
+    key: '定春',
+    string: '定春空知英秋吉田松阳服部全蔵神乐坂田银时',
+    size: 2
+}, {
+    img: host + '/img/hata.jpg',
+    key: 'HATA王子',
+    string: 'HATA王子桂小太郎山崎退志村妙冲田总悟',
+    size: 6
 }]
-var page = 1,k,gassTime;
-var chat = socketio.listen(server).on('connection', function (socket) {
+var page = 1,
+    k, gassTime;
+var chat = socketio.listen(server).on('connection', function(socket) {
 
-    socket.emit('topage',page);
-    socket.on('chat',function(msg){
-        socket.emit('chat',msg);
-        socket.broadcast.emit('chat',msg);
+    socket.emit('topage', page);
+    socket.on('chat', function(msg) {
+        socket.emit('chat', msg);
+        socket.broadcast.emit('chat', msg);
     });
-    socket.on('topage',function(msg){
-        if(msg.pw!="m123456") return;
+    socket.on('topage', function(msg) {
+        if (msg.pw != "m123456") return;
         page = msg.i;
-        socket.emit('topage',msg.i);
-        socket.broadcast.emit('topage',msg.i);
+        socket.emit('topage', msg.i);
+        socket.broadcast.emit('topage', msg.i);
     })
-    socket.on('count', function(msg){
-        i++; 
+    socket.on('count', function(msg) {
+        i++;
         socket.emit('count', i);
         socket.broadcast.emit('count', i);
 
     });
-    socket.on('add',function(msg){
-        if(!msg) return;
+    socket.on('add', function(msg) {
+        if (!msg) return;
         var key = getUaKey(msg);
-        if(ua[key]){
-            ua[key] = ua[key]+1;
-        }else{
+        if (ua[key]) {
+            ua[key] = ua[key] + 1;
+        } else {
             ua[key] = 1;
         }
     });
-    socket.on('gass',function(msg){
-        if(msg.pw!="m123456") return;
+    socket.on('gass', function(msg) {
+        if (msg.pw != "m123456") return;
         k++;
-        if(!gass[k]) k=0;
+        if (!gass[k]) k = 0;
         var s = {
-            img : gass[k].img,
-            size : gass[k].size,
-            string : gass[k].string
+            img: gass[k].img,
+            size: gass[k].size,
+            string: gass[k].string
         }
         gassTime = (+new Date());
-        socket.emit('gass',s);
-        socket.broadcast.emit('gass',s);
+        socket.emit('gass', s);
+        socket.broadcast.emit('gass', s);
     });
-    socket.on('check',function(msg){
-        if(msg.str==gass[k].key){
-            socket.emit('check',{status:true});
+    socket.on('check', function(msg) {
+        if (msg.str == gass[k].key) {
+            socket.emit('check', {
+                status: true
+            });
 
             var p = {
-                name : msg.name,
-                time : (+new Date())-gassTime
+                name: msg.name,
+                time: (+new Date()) - gassTime
             }
-            socket.emit('prize',p);
-            socket.broadcast.emit('prize',p);
+            socket.emit('prize', p);
+            socket.broadcast.emit('prize', p);
 
-        }else{
-            socket.emit('check',{status:false});
+        } else {
+            socket.emit('check', {
+                status: false
+            });
         }
     });
-    socket.on('graph',function(msg){
-        if(msg.pw!="m123456") return;
+    socket.on('graph', function(msg) {
+        if (msg.pw != "m123456") return;
         var g = ua;
-        socket.emit('graph',g);
-        socket.broadcast.emit('graph',g);
+        socket.emit('graph', g);
+        socket.broadcast.emit('graph', g);
     })
     socket.on('disconnect', function() {
         i--;
@@ -122,5 +124,3 @@ var chat = socketio.listen(server).on('connection', function (socket) {
         socket.broadcast.emit('count', i);
     });
 });
-
-
