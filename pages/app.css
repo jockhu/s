@@ -178,18 +178,41 @@ border: 1px solid #cccccc;
 	font-size: 32px;
 	line-height: 60px;
 	color: rgb(136, 56, 6);
+	position: relative;
+}
+.slide .content .ab{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.slide .content .ac{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 30px;
+	line-height: 20px;
+	text-align: center;
+	border: #ccc solid 1px;
+	background: #fff;
+	border-radius: 3px;
+	height: 25px;
+	cursor: pointer;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .slide .slide-box{
 	display: -webkit-box;
 	-webkit-box-orient:vertical;
 	height: 100%;
 }
-.slide .slide-box .photo{
+.slide .slide-box .photo,.slide .slide-box .content{
 	box-sizing:border-box;
 	-webkit-box-flex : 1;
 	text-align: center;
 }
-.slide .slide-box .photo{
+.slide .slide-box .content{
+	text-align: left;
+}
+.slide .slide-box .photo,.slide .slide-box .content{
 	height: 100%;
 	background-size: contain;
 	background-position: center;

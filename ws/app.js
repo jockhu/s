@@ -9,47 +9,51 @@ var server = http.createServer(function(req, res) {
     res.end(fs.readFileSync(__dirname + '/index.html'));
 }).listen(8180, function() {});
 
-var host = "http://192.168.2.101";
+var host = "http://img.zhiqingchen.dev.anjuke.com";
 
 
 var ua = {};
 
 function getUaKey(ua) {
     if (ua.match(/UCBrowser/i)) { //is UC
-        return ua.match(/(?:Android)|(?:iPhone)/) + 'UC' + ua.match(/UCBrowser\/(\d)/)[1];
+        return 'UC' + ua.match(/UCBrowser\/(\d)/)[1];
     } else if (ua.match(/MQQBrowser/i)) { //is qq
-        return ua.match(/(?:Android)|(?:iPhone)/) + 'QQ' + ua.match(/MQQBrowser\/(\d)/)[1];
-    } else if (ua.match(/CriOS/i)) {
-        return 'chrome';
-    } else if (ua.match(/Mozilla\/\d\.\d\s*\((?:iPhone)|(?:iPod).*Mac\s*OS.*\)\s*AppleWebKit\/\d*.*Version\/\d.*Mobile\/\w*\s*Safari\/\d*\.\d*\.*\d*$/i)) { //is iphone safari
+        return 'QQ' + ua.match(/MQQBrowser\/(\d)/)[1];
+    } else if(ua.match(/baiduboxapp/i)){
+        return 'Baidu' + ua.match(/baiduboxapp\/(\d)/)[1];
+    } else if (ua.match(/CriOS|Chrome/i)) {
+        return 'Chrome';
+    } else if (ua.match(/Mozilla\/\d\.\d\s*\((?:iPhone)|(?:iPod)|(?:iPad).*Mac\s*OS.*\)\s*AppleWebKit\/\d*.*Version\/\d.*Mobile\/\w*\s*Safari\/\d*\.\d*\.*\d*$/i)) { //is iphone safari
         return 'Safari';
-    } else if (ua.match(/MI.*\/.*AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i) || ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*.*XiaoMi\/miuiBrowser/i)) { //is Mi self
-        return 'XIAOMI';
     } else if (ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i)) { //is other android self
         return 'Android'
-    } else if (ua.match(/Mozilla\/.*\(compatible\;Android\;.*\)/)) { //is special UC
-        return 'AndroidUC9';
     } else {
-        return "unknow"; //test
+        return "other"; //test
     }
 }
 //socket
 var gass = [{
-    img: host + '/img/yilishabai.jpg',
-    key: '伊丽莎白',
-    string: '坂本辰马志村新八高杉晋助土方十四伊丽莎白',
-    size: 4
+    img: host + '/img/ajie.jpg',
+    key: '陆云杰',
+    string: '坂本辰马云志高杉陆晋助土方十四伊丽莎白杰',
+    size: 3
 }, {
-    img: host + '/img/dingchun.jpg',
-    key: '定春',
-    string: '定春空知英秋吉田松阳服部全蔵神乐坂田银时',
-    size: 2
+    img: host + '/img/zhh.jpg',
+    key: '张含会',
+    string: '定含春空知英秋吉田松张阳服神乐会坂田银时',
+    size: 3
 }, {
-    img: host + '/img/hata.jpg',
-    key: 'HATA王子',
-    string: 'HATA王子桂小太郎山崎退志村妙冲田总悟',
-    size: 6
-}]
+    img: host + '/img/coco.jpg',
+    key: '李尉亮',
+    string: '明王亮子桂小太郎山崎尉退志村妙冲田总李悟',
+    size: 3
+}, {
+    img: host + '/img/adu.jpg',
+    key: '杜一凡',
+    string: '杜一风之谷千与几起风了宫崎骏泡妞神器寻凡',
+    size: 3
+}
+]
 var page = 1,
     k, gassTime;
 var chat = socketio.listen(server).on('connection', function(socket) {

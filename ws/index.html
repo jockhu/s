@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-<link rel="stylesheet" type="text/css" href="http://192.168.2.101/app.css">
+<link rel="stylesheet" type="text/css" href="http://img.zhiqingchen.dev.anjuke.com/app.css">
 </head>
 <body>
 <div id="page1" class="page slide" index="1">
@@ -24,13 +24,20 @@ go...
 </div>
 <div class="page" id="page4"></div>
 <div class="page slide" id="page5">
+    <div class="slide-box">
     <div class="title">TouchWeb???</div>
     <div class="content">
-        <li>0-->40W 4M</li>
+    <div class="ab" id="chart_data">
+        
+    </div>
+    <div class="ac" style="display:none;">x</div>
+    <ul>
         <li>适合移动设备浏览的网站</li>
         <li>网站&nbsp;&nbsp;html、css、js&nbsp;&nbsp;兼容&nbsp;及时&nbsp;</li>
         <li>移动设备特点</li>
         <li>如何适合</li>
+    </ul>
+    </div>
     </div>
 </div>
 <div class="page slide" id="page6">
@@ -49,8 +56,10 @@ go...
 </div>
 
 <div class="page slide" id="page8">
+<div class="slide-box">
     <div class="title">HTML5</div>
     <div class="content">
+    <canvas class="ab" id="scratch"></canvas>
     <ul>
         <li>webSocket</li>
         <li>功能强大</li>
@@ -59,14 +68,15 @@ go...
     </ul>
     </div>
 </div>
+</div>
 
 <div class="page slide" id="page9">
     <div class="title">Speed</div>
     <div class="content">
     <ul>
         <li>slow!!!</li>
-        <li>30s-->10s</li>
-        <li>无刷新加载、预加载、css3效果代替图片、图片按需加载...</li>
+        <li>10s-->2s</li>
+        <li>css3效果代替图片、无刷新加载、预加载、图片按需加载...</li>
         <li>go on</li>
     </ul>
     </div>
@@ -112,9 +122,10 @@ go...
 
     <div class="send" style="display:none;"><input type="text" id="send" ><button id="send_button">发送</button></div>
     <div class="send" style="-webkit-box-pack:center" >正在登陆中...</div>
-    <script src="http://192.168.2.101/jquery-2.0.3.min.js"></script>
-    <script src="http://192.168.2.101/highcharts.js"></script>
+    <script src="http://img.zhiqingchen.dev.anjuke.com/jquery-2.0.3.min.js"></script>
+    <script src="http://img.zhiqingchen.dev.anjuke.com/highcharts.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="http://192.168.2.101/app.js"></script>
+    <script type="text/javascript" src="http://img.zhiqingchen.dev.anjuke.com/verlet-js/js/verlet-1.0.0.js"></script>
+    <script src="http://img.zhiqingchen.dev.anjuke.com/app.js"></script>
 </body>
 </html>
