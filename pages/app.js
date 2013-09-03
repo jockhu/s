@@ -195,8 +195,9 @@ $(function() {
         });
         var p = $("#page" + index);
         var s = p.offset().left;
-        $('body').scrollLeft(s - ($(window).width() - p.outerWidth()) / 2);
-        init[index] && init[index]();
+        $('body').animate({scrollLeft: s - ($(window).width() - p.outerWidth()) / 2 },500 , function(){
+            init[index] && init[index]();
+        });
     }
 
     function gass(op) {
