@@ -9,7 +9,7 @@ var server = http.createServer(function(req, res) {
     res.end(fs.readFileSync(__dirname + '/index.html'));
 }).listen(8180, function() {});
 
-var host = "http://img.zhiqingchen.dev.anjuke.com";
+var host = "http://localhost";
 
 
 var ua = {};
