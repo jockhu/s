@@ -166,7 +166,7 @@ border: 1px solid #cccccc;
 .slide .title{
 	font-size: 50px;
 	width: 80%;
-	margin: 20px auto;
+	margin: 30px auto 20px auto;
 	font-weight: bold;
 	color: rgb(119, 5, 5);
 	border-left: rgb(119,10,10) solid 10px;

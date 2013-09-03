@@ -24,13 +24,13 @@ $(function() {
         if (!$.cookie('user') || !$.cookie('name') || !$.cookie("pic")) {
             var id = parseInt((+new Date()) * Math.random());
             $.cookie('name', names[id % names.length], {
-                expires: 30
+                expires: 1
             });
             $.cookie('user', id, {
-                expires: 30
+                expires: 1
             });
             $.cookie('pic', id % 30 + ".jpg", {
-                expires: 30
+                expires: 1
             });
             iosocket.emit('add', navigator.userAgent);
         }
