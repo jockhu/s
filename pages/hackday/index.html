@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" type="text/css" href="http://img.zhiqingchen.dev.anjuke.com/hackday/index.css">
+</head>
+<body>
+<header>
+	<h1>物以类聚</h1>
+	<h2>:::::::::::::Anjuke Inc.:::::::::::::</h2>
+</header>
+<section class="b1">//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</section>
+<section class="b2">
+	<nav>
+		<li class="active" link="?type=3&op=random_partys">
+			<div>推荐</div>
+			<span></span>
+		</li>
+		<li link="?type=3&op=my_partys">
+			<div class="s">我的<br/>活动</div>
+			<span></span>
+		</li>
+		<li link="?type=1&op=get_list">
+			<div>吃货</div>
+			<span></span>
+		</li>
+		<li link="?type=2&op=get_list">
+			<div>玩家</div>
+			<span></span>
+		</li>
+		<li link="?type=3&op=get_list">
+			<div class="s">浪迹<br/>天涯</div>
+			<span></span>
+		</li>
+		<li link="?type=4&op=get_list">
+			<div class="s">孤枕<br/>难眠</div>
+			<span></span>
+		</li>
+		<li link="?type=5&op=get_list">
+			<div>妹纸多</div>
+			<span></span>
+		</li>
+		<li link="?type=6&op=get_list">
+			<div>X缺1</div>
+			<span></span>
+		</li>
+	</nav>
+	<div class="re">换一批</div>
+	<div class="bl" id="tags">
+	</div>
+</section>
+<footer></footer>
+<div class="in">
+	<h4>找人陪我</h4>
+	<h5>一起玩！&nbsp;&nbsp;</h5>
+	<div class="btn" id="in">发起活动</div>
+</div>
+<div class="da">
+	<table>
+		<tr>
+			<th>活动名：</th>
+			<td><input type="text" name="title" value="" id="f_title" /></td>
+		</tr>
+		<tr>
+			<th>时间：</th>
+			<td><input type="date" name="time" value="" id="f_date" /></td>
+		</tr>
+		<tr>
+			<th>人数：</th>
+			<td><input type="text" name="count" value="" id="f_people" /></td>
+		</tr>
+		<tr>
+			<th>分类：</th>
+			<td><select id="f_cate">
+					<option value ="eat">吃货</option>
+					<option value ="game">玩家</option>
+					<option value="travel">浪迹天涯</option>
+					<option value="sleep">孤枕难眠</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>简介：</th>
+			<td><textarea id="f_desc"></textarea></td>
+		</tr>
+	</table>
+	<div class="btn" id="add">发起活动</div>
+	<div class="btn" id="close">关闭</div>
+</div>
+<link rel="stylesheet" type="text/css" href="http://img.zhiqingchen.dev.anjuke.com/hackday/animate.css">
+<script src="http://img.zhiqingchen.dev.anjuke.com/hackday/jquery-2.0.3.min.js"></script>
+<script src="http://img.zhiqingchen.dev.anjuke.com/hackday/index.js"></script>
+</body>
+</html>
