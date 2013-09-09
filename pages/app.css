@@ -1,4 +1,4 @@
-body,ul,li,img,input,button{
+body,ul,li,img,input,button,iframe{
 	padding: 0;
 	margin: 0;
 }
@@ -21,35 +21,35 @@ body{
 	visibility: hidden;
 	/*margin: 0 50px;*/
 }
-#page1,#page2{
+.page1,.page2{
 	visibility: visible;
 }
-#page1 .photo{
+.page1 .photo{
 	margin: 20px;
 }
-#page2 ul{
+.page2 ul{
 	height: 100%;
 	overflow: auto;
 }
-#page2 li{
+.page2 li{
 	color: rgb(102, 42, 14);
 	padding: 10px;
 	background-color: rgb(255, 251, 242);
 }
-#page2 li:nth-child(1){
+.page2 li:nth-child(1){
 	margin-top: 35px;
 }
-#page2 li:last-of-type{
+.page2 li:last-of-type{
 	margin-bottom: 15px;
 }
-#page2 li:nth-child(2n){
+.page2 li:nth-child(2n){
 	background-color: rgb(247,228,169);
 }
-#page2 li img{
+.page2 li img{
 	vertical-align: middle;
 	margin-right: 5px;
 }
-#page2 ul div{
+.page2 ul div{
 	font-size: 20px;
 	text-indent: 15px;
 	line-height: 35px;
@@ -92,15 +92,15 @@ border: 1px solid #cccccc;
 	color: rgb(51, 51, 51);
 	text-align: center;
 }
-#page1 .count{
+.page1 .count{
 	padding: 20px;
 	text-align: center;
 }
-#page1 strong{
+.page1 strong{
 	color: rgb(102, 42, 14);
 	font-size: 18px;
 }
-#page1 .count span{
+.page1 .count span{
 	color: rgb(102,42,20);
 }
 /*page 3*/
@@ -111,25 +111,25 @@ border: 1px solid #cccccc;
 	color: rgb(102,42,5);
 }
 /*page4*/
-#page4{
+.page4{
 	overflow: auto;
 }
-#page4 img{
+.page4 img{
 	height: 40%;
 	display: block;
 	margin: 0 auto;
 	box-sizing:border-box;
 	margin-top: 10px;
 }
-#page4 div{
+.page4 div{
 	text-align: center;
 }
-#page4 ul{
+.page4 ul{
 	  -webkit-box-pack: center;
   -webkit-box-align: center;
   text-align: center;
 }
-#page4 li{
+.page4 li{
 	vertical-align: top;
 	width: 25px;
 	height: 25px;
@@ -139,14 +139,14 @@ border: 1px solid #cccccc;
 	margin: 5px;
 	display: inline-block;
 }
-#page4 li.active{
+.page4 li.active{
 	box-shadow: rgb(157,59,137) 0px 0px 5px;
 }
-#page4 table{
+.page4 table{
 	border-collapse:collapse;
 	margin: 5px auto 0 auto;
 }
-#page4 td{
+.page4 td{
 	border: rgb(157,100,10) solid 1px;
 	width: 40px;
 	height: 30px;
@@ -154,12 +154,17 @@ border: 1px solid #cccccc;
 	vertical-align: middle;
 }
 
-#page6 .chart{
+.page6 .chart{
 	box-sizing: border-box;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+.page15 iframe{
+	width: 100%;
+	height: 100%;
+	border: none;
 }
 
 /*slide*/

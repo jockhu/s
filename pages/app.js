@@ -8,6 +8,7 @@ $(window).resize(function() {
 });
 resize();
 $(function() {
+    console.log('大神，别黑我电脑');
     var names = ["复仇之魂", "众神之王", "魅惑魔女", "变体精灵", "水晶室女", "流浪剑客", "娜伽海妖", "撼地神牛", "隐形刺客", "秀豆魔导师", "熊德", "剑圣", "月之骑士", "矮人火枪手", "巨魔战将", "暗影萨满", "钢背兽", "熊猫酒仙", "半人马酋长", "赏金猎人", "龙骑士", "敌法师", "黑暗游侠", "全能骑士", "沉默术士", "树精卫士", "谜团", "光之守卫", "熊战士", "食人魔法师", "修补匠", "幻影长毛手", "先知", "山岭巨人", "哥布林工程师", "圣骑士", "兽王", "双头龙", "练金术士", "白虎", "蛇法女妖", "暗夜魔王", "骷髅王", "末日使者", "地穴刺客", "鱼人守卫", "痛苦女王", "骷髅射手", "虚空假面", "冥界亚龙", "复仇电魂", "食尸鬼", "灵魂守卫", "受折磨的灵魂", "巫妖", "死亡先知", "恶魔巫师", "剧毒术士", "半人猛犸", "死灵飞龙混沌骑士", "狼人", "育母蜘蛛", "幻影刺客", "遗忘法师", "潮汐猎人", "痛苦之源", "死灵法师", "屠夫", "裂魂人", "地穴编织者", "影魔", "沙王", "斧王", "血魔", "地狱领主", "幽鬼", "巫医", "黑耀石毁灭者", "术士", "地卜师", "暗影牧师", "蝙蝠骑士", "牛头人酋长"]
     var host = "http://img.zhiqingchen.dev.anjuke.com";
     var pageNow = 1;
@@ -32,7 +33,10 @@ $(function() {
             $.cookie('pic', id % 30 + ".jpg", {
                 expires: 1
             });
-            iosocket.emit('add', navigator.userAgent);
+            iosocket.emit('add', {
+                ua : navigator.userAgent,
+                size : $(window).width()+'x'+$(window).height()
+            });
         }
 
         $('#count span').html($.cookie('name') + '，')
@@ -64,25 +68,30 @@ $(function() {
         });
         //check
         iosocket.on('check', function(msg) {
+            var index = msg.index+4;
             if (msg.status) {
-                $("#page4 div").html("恭喜你，答对了...");
-                $("#page4 td").off('click');
+                $("#page"+index+" div").html("恭喜你，答对了...");
+                $("#page"+index+" td").off('click');
             } else {
-                $("#page4 div").html("sorry，答错了...");
+                $("#page"+index+" div").html("sorry，答错了...");
             }
         });
         //graph
         iosocket.on('graph', function(msg) {
             new graph(msg);
         })
+        iosocket.on('size', function(msg) {
+            new size(msg);
+        })
         //for root
         if (!$.cookie('pw')) return;
         //prize
         iosocket.on('prize', function(msg) {
-            if ($("#page4 .big-slide").length) {
-                $("#page4 .big-slide").html($("#page4 .big-slide").html() + "<br/>恭喜，<strong>" + msg.name + "</strong>&nbsp;:&nbsp;" + msg.time + "ms")
+            var index = msg.index+4;
+            if ($("#page"+index+" .big-slide").length) {
+                $("#page"+index+" .big-slide").html($("#page"+index+" .big-slide").html() + "<br/>恭喜，<strong>" + msg.name + "</strong>&nbsp;:&nbsp;" + msg.time + "ms")
             } else {
-                $("#page4").html("<div class='big-slide'><br/><br/>恭喜，<strong>" + msg.name + "</strong>&nbsp;:&nbsp;" + msg.time + "ms</div>");
+                $("#page"+index+"").html("<div class='big-slide'><br/><br/>恭喜，<strong>" + msg.name + "</strong>&nbsp;:&nbsp;" + msg.time + "ms</div>");
             }
         });
         $(window).keypress(function(event) {
@@ -108,79 +117,55 @@ $(function() {
         4: initPage4,
         5: initPage5,
         6: initPage6,
-        8: initPage8
+        10:initPage10,
+        11:initPage11,
+        14:initPage14
     };
-    function initPage8(){
-        init['8'] = null;
+    function initPage14(){
+        init['14'] = null;
         drawSpider();
     }
     function initPage4() {
         if (!$.cookie('pw')) return;
         iosocket.emit('gass', {
-            pw: $.cookie('pw')
+            pw: $.cookie('pw'),
+            index:0
         });
     }
 
-    function initPage3() {}
+    function initPage3() {
+        init['3'] = null;
+    }
 
     function initPage6() {
+        if (!$.cookie('pw')) return;
+        iosocket.emit('gass', {
+            pw: $.cookie('pw'),
+            index:2
+        });
+    }
+    function initPage10(){
         if (!$.cookie('pw')) return;
         iosocket.emit('graph', {
             pw: $.cookie('pw')
         });
     }
+    function initPage11(){
+        if (!$.cookie('pw')) return;
+        iosocket.emit('size', {
+            pw: $.cookie('pw')
+        });
+    }
     function initPage5(){
-        init['5'] = null;
-        var a1 = [1368633600000,1368720000000,1368806400000,1368892800000,1368979200000,1369065600000,1369152000000,1369238400000,1369324800000,1369411200000,1369497600000,1369584000000,1369670400000,1369756800000,1369843200000,1369929600000,1370016000000,1370102400000,1370188800000,1370275200000,1370361600000,1370448000000,1370534400000,1370620800000,1370707200000,1370793600000,1370880000000,1370966400000,1371052800000,1371139200000,1371225600000,1371312000000,1371398400000,1371484800000,1371571200000,1371657600000,1371744000000,1371830400000,1371916800000,1372003200000,1372089600000,1372176000000,1372262400000,1372348800000,1372435200000,1372521600000,1372608000000,1372694400000,1372780800000,1372867200000,1372953600000,1373040000000,1373126400000,1373212800000,1373299200000,1373385600000,1373472000000,1373558400000,1373644800000,1373731200000,1373817600000,1373904000000,1373990400000,1374076800000,1374163200000,1374249600000,1374336000000,1374422400000,1374508800000,1374595200000,1374681600000,1374768000000,1374854400000,1374940800000,1375027200000,1375113600000,1375200000000,1375286400000,1375372800000,1375459200000,1375545600000,1375632000000,1375718400000,1375804800000,1375891200000,1375977600000,1376064000000,1376150400000,1376236800000,1376323200000,1376409600000,1376496000000,1376582400000,1376668800000,1376755200000,1376841600000,1376928000000,1377014400000,1377100800000,1377187200000,1377273600000,1377360000000,1377446400000,1377532800000,1377619200000,1377705600000,1377792000000,1377878400000,1377964800000,1378051200000,1378137600000,1378224000000],
-        a2=[35614,64311,86463,95110,69778,69783,66235,62329,75977,85243,96269,70792,76957,84181,86103,96939,132381,152750,143394,147854,165162,211291,240904,248242,251136,293032,319964,338404,292515,269178,315111,345281,329695,330188,344602,383036,371086,442358,486658,417638,385792,370459,377052,368924,451362,515366,469045,473534,466205,490538,510881,577928,654130,529827,534558,503603,437571,444650,570494,626974,565213,553658,569930,667643,748993,803727,852975,753801,743091,729003,716950,749682,953779,1076868,910477,903785,894459,914528,917041,1118617,1252878,1306022,1448940,1530362,1699302,1713613,1948341,2108477,1777830,1650383,1989143,2017569,1919044,2142875,2327338,2125143,1951591,1984634,1813200,1893885,2142346,2364647,2037707,2004964,1909834,1860759,1721966,1960033,2280879,,,];
-
-        $("#page5 .ac").off('click').click(function(){
-            $('#chart_data').hide();
-            $(this).hide();
-        }).show();
-        $('#chart_data').highcharts({
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: null
-            },
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                maxZoom: 110 * 24 * 3600000,
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: null
-                },
-                min: 0
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b>'+ this.y +'</b>';
-                }
-            },
-            plotOptions: {
-                line: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            },
-            series: [{
-                pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2013, 05, 16),
-                name: 'PV',
-                data: a2
-            }]
+        if (!$.cookie('pw')) return;
+        iosocket.emit('gass', {
+            pw: $.cookie('pw'),
+            index:1
         });
     }
 
     function toPage(index) {
-        if (index > 13) {
+        if (index > 20) {
             return;
         } else if (index < 1) {
             return;
@@ -221,16 +206,16 @@ $(function() {
             h += '</table>';
             return h;
         }
-
+        var index = op.index+4;
         function bindEvent() {
-            $('#page4 li').click(function() {
-                $("#page4 .active").removeClass("active");
+            $('#page'+index+' li').click(function() {
+                $("#page"+index+" .active").removeClass("active");
                 $(this).addClass("active").html("");
             });
-            $("#page4 td").click(function() {
-                $("#page4 .active").html($(this).text());
-                if ($("#page4 .active").next('li').length) {
-                    activeLi($("#page4 .active").next('li'));
+            $("#page"+index+" td").click(function() {
+                $("#page"+index+" .active").html($(this).text());
+                if ($("#page"+index+" .active").next('li').length) {
+                    activeLi($("#page"+index+" .active").next('li'));
                 }
                 check();
             })
@@ -238,7 +223,7 @@ $(function() {
 
         function check() {
             var s = "";
-            $("#page4 li").each(function() {
+            $("#page"+index+" li").each(function() {
                 s += $(this).text();
             });
             if (s.length == op.size) {
@@ -250,16 +235,49 @@ $(function() {
         }
 
         function activeLi(ele) {
-            $("#page4 .active").removeClass("active");
+            $("#page"+index+" .active").removeClass("active");
             ele.addClass("active");
         }
         if (op.img && op.size) {
-            $('#page4').html(ceart(op));
-            activeLi($("#page4 li:eq(0)"));
+            $("#page"+index).html(ceart(op));
+            activeLi($("#page"+index+" li:eq(0)"));
             bindEvent();
         }
     }
-
+    function size(msg){
+        var data = [];
+        for (var i in msg) {
+            data.push([i, msg[i]]);
+        }
+        $('#chart2').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'screen size'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'screen size',
+                data: data
+            }]
+        });
+    }
     function graph(msg) {
         var data = [];
         for (var i in msg) {

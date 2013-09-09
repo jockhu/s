@@ -12,7 +12,7 @@ var server = http.createServer(function(req, res) {
 var host = "http://img.zhiqingchen.dev.anjuke.com";
 
 
-var ua = {};
+var ua = {},sizes = {};
 
 function getUaKey(ua) {
     if (ua.match(/UCBrowser/i)) { //is UC
@@ -43,19 +43,13 @@ var gass = [{
     string: '定含春空知英秋吉田松张阳服神乐会坂田银时',
     size: 3
 }, {
-    img: host + '/img/coco.jpg',
-    key: '李尉亮',
-    string: '明王亮子桂小太郎山崎尉退志村妙冲田总李悟',
-    size: 3
-}, {
-    img: host + '/img/adu.jpg',
-    key: '杜一凡',
-    string: '杜一风之谷千与几起风了宫崎骏泡妞神器寻凡',
+    img: host + '/img/coco.png',
+    key: '陈志庆',
+    string: '明王志子桂小太郎山崎庆退志村妙冲田总陈悟',
     size: 3
 }
 ]
-var page = 1,
-    k, gassTime;
+var page = 1,gassTime,k;
 var chat = socketio.listen(server).on('connection', function(socket) {
 
     socket.emit('topage', page);
@@ -77,21 +71,28 @@ var chat = socketio.listen(server).on('connection', function(socket) {
     });
     socket.on('add', function(msg) {
         if (!msg) return;
-        var key = getUaKey(msg);
+        var key = getUaKey(msg.ua);
         if (ua[key]) {
             ua[key] = ua[key] + 1;
         } else {
             ua[key] = 1;
         }
+        var size = msg.size;
+        if(sizes[size]){
+            sizes[size] += 1;
+        }else{
+            sizes[size] = 1;
+        }
     });
     socket.on('gass', function(msg) {
         if (msg.pw != "m123456") return;
-        k++;
-        if (!gass[k]) k = 0;
+        k = msg.index;
+        if(!gass[k])return;
         var s = {
             img: gass[k].img,
             size: gass[k].size,
-            string: gass[k].string
+            string: gass[k].string,
+            index: k
         }
         gassTime = (+new Date());
         socket.emit('gass', s);
@@ -100,19 +101,22 @@ var chat = socketio.listen(server).on('connection', function(socket) {
     socket.on('check', function(msg) {
         if (msg.str == gass[k].key) {
             socket.emit('check', {
-                status: true
+                status: true,
+                index:k
             });
 
             var p = {
                 name: msg.name,
-                time: (+new Date()) - gassTime
+                time: (+new Date()) - gassTime,
+                index:k
             }
             socket.emit('prize', p);
             socket.broadcast.emit('prize', p);
 
         } else {
             socket.emit('check', {
-                status: false
+                status: false,
+                index:k
             });
         }
     });
@@ -121,7 +125,13 @@ var chat = socketio.listen(server).on('connection', function(socket) {
         var g = ua;
         socket.emit('graph', g);
         socket.broadcast.emit('graph', g);
-    })
+    });
+    socket.on('size', function(msg) {
+        if (msg.pw != "m123456") return;
+        var g = sizes;
+        socket.emit('size', g);
+        socket.broadcast.emit('size', g);
+    });
     socket.on('disconnect', function() {
         i--;
         socket.emit('count', i);
