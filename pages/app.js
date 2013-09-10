@@ -1,7 +1,6 @@
 function resize() {
     $(".page").width($(window).width());
     $("body").width($(window).width() * ($(".page").length + 1));
-
 }
 $(window).resize(function() {
     resize();
@@ -119,8 +118,13 @@ $(function() {
         6: initPage6,
         10:initPage10,
         11:initPage11,
-        14:initPage14
+        14:initPage14,
+        15:initPage15
     };
+    function initPage15(){
+        init['15'] = null;
+        $('iframe').attr('src',$('iframe').attr('data-src'));
+    }
     function initPage14(){
         init['14'] = null;
         drawSpider();
@@ -180,6 +184,7 @@ $(function() {
         });
         var p = $("#page" + index);
         var s = p.offset().left;
+        if($.cookie('stop')&&index>2)return;
         $('body').animate({scrollLeft: s - ($(window).width() - p.outerWidth()) / 2 },500 , function(){
             init[index] && init[index]();
         });

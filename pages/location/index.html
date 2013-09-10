@@ -215,7 +215,6 @@
 						'&lon=' + position.coords.longitude + '&callback=?'
 
 					$.getJSON(weatherAPI, function(response) {
-						console.log(response,$('#location h3'))
 						$('#location h3,#location .rb-city').text(response.city.name);
 						$('#location span:eq(0),#location .rb-tem').text(parseInt(response.list[0].main.temp-273.15)+"°C");
 					});
