@@ -33,19 +33,29 @@ function getUaKey(ua) {
 }
 //socket
 var gass = [{
-    img: host + '/img/ajie.jpg',
-    key: '陆云杰',
-    string: '坂本辰马云志高杉陆晋助土方十四伊丽莎白杰',
+    img: host + '/img/xzy.png',
+    key: '徐震宇',
+    string: '张尔宁振许胡宇游徐符震嘉户明家敬友时霖岳',
     size: 3
 }, {
-    img: host + '/img/zhh.jpg',
-    key: '张含会',
-    string: '定含春空知英秋吉田松张阳服神乐会坂田银时',
+    img:host + '/img/kjq.png',
+    key:'蒯佳祺',
+    string:'奇陈家昊蒯克鲁程宣祺梁爱佳郝蔺良宇百致亲',
     size: 3
+},{
+    img:host + '/img/kjq.png',
+    key:'胡志明',
+    string:'安兆明英科民居志富赵胡客鹏岸置飞杨环燕于',
+    size: 3
+},{
+    img: host + '/img/youzi.png',
+    key: '柚子',
+    string: '子田万勇超海果云杨悠珊江玉柚勤冯马庆苹徐',
+    size: 2
 }, {
     img: host + '/img/coco.png',
     key: '陈志庆',
-    string: '明王志子桂小太郎山崎庆退志村妙冲田总陈悟',
+    string: '程庆郝二志蒋居君陈家驹良昊葛智俊杨祥尔李',
     size: 3
 }
 ]

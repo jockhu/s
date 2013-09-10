@@ -87,6 +87,7 @@ $(function() {
         //prize
         iosocket.on('prize', function(msg) {
             var index = msg.index+4;
+            if (index == 4) return;
             if ($("#page"+index+" .big-slide").length) {
                 $("#page"+index+" .big-slide").html($("#page"+index+" .big-slide").html() + "<br/>恭喜，<strong>" + msg.name + "</strong>&nbsp;:&nbsp;" + msg.time + "ms")
             } else {
@@ -113,27 +114,39 @@ $(function() {
         1: null,
         2: null,
         3: initPage3,
-        4: initPage4,
-        5: initPage5,
-        6: initPage6,
-        10:initPage10,
-        11:initPage11,
-        14:initPage14,
-        15:initPage15
+        4: function(){
+            sgass(0);
+        },
+        5: function(){
+            sgass(1);
+        },
+        6: function(){
+            sgass(2);
+        },
+        7:function(){
+            sgass(3);
+        },
+        8:function(){
+            sgass(4);
+        },
+        12:initPage10,
+        13:initPage11,
+        16:initPage14,
+        17:initPage15
     };
     function initPage15(){
-        init['15'] = null;
+        init['17'] = null;
         $('iframe').attr('src',$('iframe').attr('data-src'));
     }
     function initPage14(){
-        init['14'] = null;
+        init['16'] = null;
         drawSpider();
     }
-    function initPage4() {
+    function sgass(i) {
         if (!$.cookie('pw')) return;
         iosocket.emit('gass', {
             pw: $.cookie('pw'),
-            index:0
+            index:i
         });
     }
 
@@ -141,13 +154,6 @@ $(function() {
         init['3'] = null;
     }
 
-    function initPage6() {
-        if (!$.cookie('pw')) return;
-        iosocket.emit('gass', {
-            pw: $.cookie('pw'),
-            index:2
-        });
-    }
     function initPage10(){
         if (!$.cookie('pw')) return;
         iosocket.emit('graph', {
@@ -160,16 +166,8 @@ $(function() {
             pw: $.cookie('pw')
         });
     }
-    function initPage5(){
-        if (!$.cookie('pw')) return;
-        iosocket.emit('gass', {
-            pw: $.cookie('pw'),
-            index:1
-        });
-    }
-
     function toPage(index) {
-        if (index > 20) {
+        if (index > 23) {
             return;
         } else if (index < 1) {
             return;

@@ -153,6 +153,9 @@ border: 1px solid #cccccc;
 	text-align: center;
 	vertical-align: middle;
 }
+.page9 img{
+	height: 40%;
+}
 
 .page6 .chart{
 	box-sizing: border-box;
@@ -231,6 +234,9 @@ border: 1px solid #cccccc;
 }
 #photo2{
 	background-image: url("/img/ffe2.jpg");
+}
+#photo3{
+	background-image: url("/img/tx.jpg");
 }
 
 @media screen and (max-width: 480px){
