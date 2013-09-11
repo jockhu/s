@@ -41,6 +41,8 @@ $(function() {
             });
         }
 
+        $('#username').html($.cookie('name'));
+
         $('#count span').html($.cookie('name') + '，')
 
         iosocket.on('count', function(i) {
