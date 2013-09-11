@@ -19,7 +19,6 @@ $(function() {
 
         //init
         $(".send:eq(0)").show();
-        // if(!$.cookie('pw')){$(".send:eq(0)").show();}
         $(".send:eq(1)").hide();
 
 
