@@ -27,23 +27,25 @@ function getUaKey(ua) {
         return 'Safari';
     } else if (ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i)) { //is other android self
         return 'Android'
+    } else if(ua.match(/MSIE ([\d]+)/)){
+        return 'IE' + ua.match(/MSIE ([\d]+)/)[1];
     } else {
         return "other"; //test
     }
 }
 //socket
 var gass = [{
-    img: host + '/img/xzy.png',
+    img: host + '/img/xzy.jpg',
     key: '徐震宇',
     string: '张尔宁振许胡宇游徐符震嘉户明家敬友时霖岳',
     size: 3
 }, {
-    img:host + '/img/kjq.png',
+    img:host + '/img/kjq.jpg',
     key:'蒯佳祺',
     string:'奇陈家昊蒯克鲁程宣祺梁爱佳郝蔺良宇百致亲',
     size: 3
 },{
-    img:host + '/img/kjq.png',
+    img:host + '/img/kjq.jpg',
     key:'胡志明',
     string:'安兆明英科民居志富赵胡客鹏岸置飞杨环燕于',
     size: 3
@@ -68,7 +70,7 @@ var chat = socketio.listen(server).on('connection', function(socket) {
         socket.broadcast.emit('chat', msg);
     });
     socket.on('topage', function(msg) {
-        if (msg.pw != "m123456") return;
+        if (msg.pw != "m1") return;
         page = msg.i;
         socket.emit('topage', msg.i);
         socket.broadcast.emit('topage', msg.i);
@@ -95,7 +97,7 @@ var chat = socketio.listen(server).on('connection', function(socket) {
         }
     });
     socket.on('gass', function(msg) {
-        if (msg.pw != "m123456") return;
+        if (msg.pw != "m1") return;
         k = msg.index;
         if(!gass[k])return;
         var s = {
@@ -131,13 +133,13 @@ var chat = socketio.listen(server).on('connection', function(socket) {
         }
     });
     socket.on('graph', function(msg) {
-        if (msg.pw != "m123456") return;
+        if (msg.pw != "m1") return;
         var g = ua;
         socket.emit('graph', g);
         socket.broadcast.emit('graph', g);
     });
     socket.on('size', function(msg) {
-        if (msg.pw != "m123456") return;
+        if (msg.pw != "m1") return;
         var g = sizes;
         socket.emit('size', g);
         socket.broadcast.emit('size', g);

@@ -21,7 +21,7 @@ body{
 	visibility: hidden;
 	/*margin: 0 50px;*/
 }
-.page1,.page2{
+.page1{
 	visibility: visible;
 }
 .page1 .photo{
