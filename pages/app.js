@@ -23,9 +23,13 @@ $(function() {
 
 
         iosocket.emit('count', 1);
-        if (!$.cookie('user') || !$.cookie('name') || !$.cookie("pic")) {
+        var version = '20130911';
+        if ($.cookie('s_version')!=version||!$.cookie('user') || !$.cookie('name') || !$.cookie("pic")) {
+            $.cookie('s_version',version,{
+                expires:1
+            });
             var id = parseInt((+new Date()) * Math.random());
-            $.cookie('name', names[id % names.length], {
+            $.cookie('name', names[id % names.length]+parseInt(Math.random()*100), {
                 expires: 1
             });
             $.cookie('user', id, {
@@ -87,7 +91,10 @@ $(function() {
             new size(msg);
         })
         //for root
-        if (!$.cookie('pw')) return;
+        if (!$.cookie('pw')) {
+            $('.link').attr('href',"javascript:void(0)");
+            return;
+        };
         //prize
         iosocket.on('prize', function(msg) {
             var index = msg.index+4;
@@ -171,7 +178,7 @@ $(function() {
         });
     }
     function toPage(index) {
-        if (index > 23) {
+        if (index > 22) {
             return;
         } else if (index < 1) {
             return;
@@ -263,7 +270,7 @@ $(function() {
                 plotShadow: false
             },
             title: {
-                text: 'screen size'
+                text: ''
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -297,7 +304,7 @@ $(function() {
                 plotShadow: false
             },
             title: {
-                text: 'Browser used'
+                text: ''
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

@@ -248,6 +248,7 @@ border: 1px solid #cccccc;
 @media screen and (max-width: 480px){
 	.big-slide,.slide .title{
 		font-size: 25px;
+		line-height: 40px;
 	}
 	.slide .content{
 		font-size: 16px;
