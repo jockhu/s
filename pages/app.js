@@ -170,7 +170,7 @@ $(function() {
         });
     }
     function toPage(index) {
-        if (index > 22) {
+        if (index > 23) {
             return;
         } else if (index < 1) {
             return;
