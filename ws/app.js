@@ -27,7 +27,7 @@ function getUaKey(ua) {
         return 'Safari';
     } else if (ua.match(/AppleWebKit\/.*Version\/\d(?:\.\d)?\s?Mobile\s*Safari\/\w*\.\w*$/i)) { //is other android self
         return 'Android'
-    } else if(ua.match(/MSIE ([\d]+)/)){
+    } else if(ua.match(/MSIE\s*([\d]+)/)){
         return 'IE' + ua.match(/MSIE ([\d]+)/)[1];
     } else {
         return "other"; //test
